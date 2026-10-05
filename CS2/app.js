@@ -4,16 +4,24 @@ let discountMultiplier = 1.0;
 let verifiedId = '';
 let activePackage = null;
 
-// Pricing: 3-4 Rubles cheaper than secreti4 rates
+// Полный каталог паков secreti4 со скидкой от 4 до 10 рублей
 const UC_PACKAGES = [
   { id: 'uc_60', uc: 60, bonus: 0, rub: 85, uzs: 11900, usd: 0.89, tag: 'Starter', cat: 'all', img: '📦' },
-  { id: 'uc_325', uc: 300, bonus: 25, rub: 445, uzs: 62000, usd: 4.65, tag: 'Popular', cat: 'popular', img: '🪙' },
-  { id: 'uc_660', uc: 600, bonus: 60, rub: 875, uzs: 122000, usd: 9.15, tag: 'Royale Pass', cat: 'pass', popular: true, img: '🎫' },
-  { id: 'uc_1800', uc: 1500, bonus: 300, rub: 2195, uzs: 307000, usd: 22.95, tag: 'Hot Deal', cat: 'popular', img: '💎' },
-  { id: 'uc_3850', uc: 3000, bonus: 850, rub: 4345, uzs: 608000, usd: 45.50, tag: 'Elite Plus', cat: 'pass', img: '👑' },
-  { id: 'uc_8100', uc: 6000, bonus: 2100, rub: 8695, uzs: 1217000, usd: 91.00, tag: 'Best Value', cat: 'popular', bestValue: true, img: '🏆' },
-  { id: 'uc_16200', uc: 12000, bonus: 4200, rub: 17295, uzs: 2420000, usd: 181.00, tag: 'Mythic Pack', cat: 'all', img: '🔥' },
-  { id: 'uc_32400', uc: 24000, bonus: 8400, rub: 34495, uzs: 4825000, usd: 361.00, tag: 'Titan Whale', cat: 'all', img: '⚡' }
+  { id: 'uc_120', uc: 120, bonus: 0, rub: 172, uzs: 24100, usd: 1.80, tag: 'Mini', cat: 'all', img: '📦' },
+  { id: 'uc_180', uc: 180, bonus: 0, rub: 258, uzs: 36100, usd: 2.70, tag: 'Plus', cat: 'all', img: '🪙' },
+  { id: 'uc_325', uc: 300, bonus: 25, rub: 442, uzs: 61900, usd: 4.60, tag: 'Popular', cat: 'popular', img: '🪙' },
+  { id: 'uc_385', uc: 360, bonus: 25, rub: 527, uzs: 73800, usd: 5.50, tag: 'Value', cat: 'popular', img: '🪙' },
+  { id: 'uc_660', uc: 600, bonus: 60, rub: 871, uzs: 121900, usd: 9.10, tag: 'Royale Pass', cat: 'pass', popular: true, img: '🎫' },
+  { id: 'uc_720', uc: 660, bonus: 60, rub: 956, uzs: 133800, usd: 9.99, tag: 'RP Upgrade', cat: 'pass', img: '🎫' },
+  { id: 'uc_985', uc: 900, bonus: 85, rub: 1310, uzs: 183400, usd: 13.70, tag: 'Special', cat: 'popular', img: '💎' },
+  { id: 'uc_1320', uc: 1200, bonus: 120, rub: 1739, uzs: 243500, usd: 18.20, tag: 'Pro Pack', cat: 'all', img: '💎' },
+  { id: 'uc_1800', uc: 1500, bonus: 300, rub: 2189, uzs: 306500, usd: 22.90, tag: 'Hot Deal', cat: 'popular', img: '💎' },
+  { id: 'uc_2125', uc: 1800, bonus: 325, rub: 2625, uzs: 367500, usd: 27.50, tag: 'Mega', cat: 'all', img: '💎' },
+  { id: 'uc_3850', uc: 3000, bonus: 850, rub: 4339, uzs: 607500, usd: 45.40, tag: 'Elite Plus', cat: 'pass', img: '👑' },
+  { id: 'uc_5650', uc: 4500, bonus: 1150, rub: 6530, uzs: 914200, usd: 68.30, tag: 'Grand', cat: 'all', img: '👑' },
+  { id: 'uc_8100', uc: 6000, bonus: 2100, rub: 8689, uzs: 1216500, usd: 90.90, tag: 'Best Value', cat: 'popular', bestValue: true, img: '🏆' },
+  { id: 'uc_16200', uc: 12000, bonus: 4200, rub: 17289, uzs: 2420000, usd: 180.90, tag: 'Mythic Pack', cat: 'all', img: '🔥' },
+  { id: 'uc_32400', uc: 24000, bonus: 8400, rub: 34489, uzs: 4825000, usd: 360.90, tag: 'Titan Whale', cat: 'all', img: '⚡' }
 ];
 
 function formatPrice(pack) {
@@ -48,7 +56,7 @@ function renderProducts(filter = 'all') {
       <div>
         <div class="flex items-center justify-between mb-3">
           <span class="text-3xl">${p.img}</span>
-          <span class="text-[10px] font-mono text-brand-accent bg-brand-accent/10 px-2 py-0.5 rounded">Lowest Price</span>
+          <span class="text-[10px] font-mono text-brand-accent bg-brand-accent/10 px-2 py-0.5 rounded">Cheaper than secreti4</span>
         </div>
 
         <div class="font-orbitron font-black text-2xl text-white tracking-wide">
@@ -135,7 +143,7 @@ const badgeElem = document.getElementById('calcCurrencyBadge');
 function updateCalculator() {
   if (!numInput || !totalElem) return;
   const uc = parseInt(numInput.value) || 0;
-  const rubPrice = uc * 1.32;
+  const rubPrice = uc * 1.31;
 
   if (currentCurrency === 'RUB') {
     totalElem.textContent = Math.round(rubPrice * discountMultiplier).toLocaleString();
@@ -232,7 +240,7 @@ function applyPromo() {
   }
 }
 
-// АВТОМАТИЧЕСКАЯ ОБРАБОТКА ОПЛАТЫ (БАНК, КЛИК, КРИПТА)
+// Прямой шлюз онлайн-оплаты
 function processOnlinePayment() {
   const playerIdInput = document.getElementById('modalPlayerId');
   const err = document.getElementById('modalIdError');
@@ -246,33 +254,25 @@ function processOnlinePayment() {
   err.classList.add('hidden');
 
   const selectedGateway = document.querySelector('input[name="payGateway"]:checked')?.value || 'click_uzum';
-  const packTitle = document.getElementById('modalPackName').textContent;
   const finalPrice = document.getElementById('modalPackPrice').textContent;
   const numericPrice = parseFloat(finalPrice.replace(/[^0-9.]/g, ''));
 
-  // 1. ПРИЛОЖЕНИЕ CLICK / UZUM / PAYME
   if (selectedGateway === 'click_uzum') {
-    // Ссылка на оплату счета в приложении Click/Uzum:
     const clickPaymentUrl = `https://my.click.uz/services/pay?service_id=YOUR_SERVICE_ID&merchant_id=YOUR_MERCHANT_ID&amount=${numericPrice}&transaction_param=${pId}`;
-    
     alert(`Перенаправление в платёжное приложение Click / Uzum на сумму ${finalPrice}...\nPlayer ID: ${pId}`);
     window.location.href = clickPaymentUrl;
     return;
   }
 
-  // 2. БАНКОВСКИЕ КАРТЫ И СБП (Шлюз Aaio / FreeKassa / Payeer)
   if (selectedGateway === 'card_online') {
     const cardGatewayUrl = `https://aaio.so/merchant/pay?merchant_id=YOUR_MERCHANT_ID&amount=${numericPrice}&order_id=${pId}_${Date.now()}`;
-    
     alert(`Переход на защищённый шлюз оплаты картой на сумму ${finalPrice}...\nPlayer ID: ${pId}`);
     window.location.href = cardGatewayUrl;
     return;
   }
 
-  // 3. АВТОМАТИЧЕСКИЙ КРИПТО-СЧЁТ (CryptoBot / Cryptomus)
   if (selectedGateway === 'crypto_bot') {
     const cryptoUrl = `https://t.me/CryptoBot?start=invoice_${pId}_${numericPrice}`;
-    
     alert(`Открытие инвойса CryptoBot на сумму ${finalPrice}...\nPlayer ID: ${pId}`);
     window.location.href = cryptoUrl;
     return;
